@@ -52,6 +52,8 @@ class HoneypotComments
 			// Read the log from  /var/log/nginx/error.log
 			//error_log( 'pre_comment_approved shell_exec: ' . shell_exec('sudo --non-interactive /usr/sbin/ufw status 2>&1'));
 			exec("sudo --non-interactive /usr/sbin/ufw insert 1 deny from $commentdata[comment_author_IP]/24 comment wordpress");
+			// HTTP connection is usually persistent.
+			exec("sudo --non-interactive /usr/sbin/conntrack -D -s $commentdata[comment_author_IP]");
 		}
 
 		//return new WP_Error('db_update_error', 'Not enough disk space', 500);
