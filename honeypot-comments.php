@@ -1,3 +1,4 @@
+<?php
 /*
 * Plugin Name: Honeypot comments
 * Description: Visually hide comments, but allow bots to inject comments
@@ -6,7 +7,6 @@
 * Requires PHP:
 */
 
-<?php
 
 class HoneypotComments
 {
