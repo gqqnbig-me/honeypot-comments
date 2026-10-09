@@ -14,6 +14,7 @@ class HoneypotComments
 	{
 		add_action('comment_form_before', array($this, 'hide_comment_form_before'));
 		add_action('comment_form_after', array($this, 'hide_comment_form_after'));
+		// The hook is called by wp_check_comment_data() in wp-includes/comment.php.
 		add_filter('pre_comment_approved', array($this, 'pre_comment_approved'), 5, 2);
 	}
 
