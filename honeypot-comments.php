@@ -37,16 +37,14 @@ class HoneypotComments
 
 	function pre_comment_approved($approved, $commentdata)
 	{
-		// Check for pingbacks only
-		if (isset($commentdata['comment_type']) && $commentdata['comment_type'] === 'pingback') {
-			if (!empty($commentdata['user_ID'])) {
-				$user = get_userdata($commentdata['user_ID']);
+		// If it's a pingback, respect the original decision.
+		if ($commentdata['comment_type'] == 'pingback')
+			return $approved;
 
-				if ($user && in_array('administrator', (array)$user->roles, true)) {
-					// Approve pingback from admin
-					return 1;
-				}
-			}
+		$user = get_userdata($commentdata['user_ID']);
+
+		if ($user && in_array('administrator', (array)$user->roles, true)) {
+			return 1;
 		}
 
 		if (!empty($commentdata['comment_author_IP'])) {
